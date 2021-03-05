@@ -177,7 +177,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 					+ "ORDER By Name"
 					);
 			
-			System.out.println("aki " + st.toString());
+			System.out.println("Comando SQL: " + st.toString());
 			
 			rs = st.executeQuery();
 			
