@@ -174,7 +174,8 @@ PreparedStatement st = null;
 		obj.setName(rs.getString("Name"));
 		obj.setEmail(rs.getString("Email"));
 		obj.setBaseSalary(rs.getDouble("BaseSalary"));
-		obj.setBirthDate(rs.getDate("BirthDate"));
+		//obj.setBirthDate(rs.getDate("BirthDate")); estava pegando date do SQL, o correto é pegar da biblioteca UTIL
+		obj.setBirthDate(new java.util.Date(rs.getTimestamp("BirthDate").getTime()));
 		obj.setDepartment(dep);
 		
 		return obj;
