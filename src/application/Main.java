@@ -14,6 +14,8 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		
+		System.out.println("start");
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));
 			ScrollPane scrollPane = loader.load();
@@ -35,6 +37,8 @@ public class Main extends Application {
 	}
 	
  	public static void main(String[] args) {
+ 		
+ 		System.out.println("Principal");
 		launch(args);
 	}
 }
