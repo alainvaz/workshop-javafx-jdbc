@@ -1,9 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -113,13 +115,31 @@ public class SellerFormController implements Initializable {
 		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addErros("name", "Field cannot be empty");
 		}
+		
+		if (txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
+			exception.addErros("email", "Field cannot be empty");
+		}
+		
+		if(dpBirthDate.getValue() == null) {
+			exception.addErros("birthDate", "Field cannot be empty");
+		}
+		
+		if (txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals("")) {
+			exception.addErros("baseSalary", "Field cannot be empty");
+		}
 
 		if (exception.getErros().size() > 0) {
 			throw exception;
 		}
+		
+		Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault())); // pegando valor Date Picker
 
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 		obj.setName(txtName.getText());
+		obj.setEmail(txtEmail.getText());
+		obj.setBirthDate(Date.from(instant));
+		obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
+		obj.setDepartment(comboBoxDepartment.getValue());
 
 		return obj;
 	}
@@ -185,11 +205,28 @@ public class SellerFormController implements Initializable {
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {
+		
+		labelErrorName.setText("");
+		labelErrorEmail.setText("");
+		labelErrorBirthDate.setText("");
+		labelErrorBaseSalary.setText("");
 
 		Set<String> fields = errors.keySet();
 
 		if (fields.contains("name")) {
 			labelErrorName.setText(errors.get("name"));
+		}
+		
+		if (fields.contains("email")) {
+			labelErrorEmail.setText(errors.get("email"));
+		}
+		
+		if (fields.contains("baseSalary")) {
+			labelErrorBaseSalary.setText(errors.get("baseSalary"));
+		}
+		
+		if (fields.contains("birthDate")) {
+			labelErrorBirthDate.setText(errors.get("birthDate"));
 		}
 
 	}
